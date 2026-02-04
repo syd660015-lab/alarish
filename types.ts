@@ -1,40 +1,57 @@
-export enum JobGrade {
-  SENIOR = 'كبير معلمين',
-  EXPERT = 'معلم خبير',
-  FIRST_A = 'معلم أول (أ)',
-  FIRST = 'معلم أول',
-  TEACHER = 'معلم',
-  ASSISTANT = 'معلم مساعد'
+
+export interface GlossaryTerm {
+  termAr: string;
+  termEn: string;
+  definition: string;
+  theory: string;
+  sinaiExample: string;
+  impact: string;
+  application: string;
 }
 
-export interface TeacherDataEntry {
+export interface CaseStudy {
   id: string;
-  grade: JobGrade;
-  currentCount: number; // العدد الحالي
-  requiredCount: number; // العدد المطلوب (الملاك)
-  quota: number; // نصاب الحصص
+  scenario: string;
+  questions: string[];
+  targetSkill: string;
+  expertAnalysis: {
+    theory: string;
+    sinaiInsight: string;
+    practicalSolution: string;
+  };
 }
 
-export interface ClassCounts {
-  grade1: number;
-  grade2: number;
-  grade3: number;
-  grade4: number;
-  grade5: number;
-  grade6: number;
+export interface Question {
+  id: string;
+  unit: number;
+  question: string;
+  options: string[];
+  answer: string;
+  explanation: {
+    theory: string;
+    sinaiLink: string;
+    detailedExample: string;
+    implications: string;
+    applications: string;
+  };
 }
 
-export interface StudentCounts {
-  grade1: number;
-  grade2: number;
-  grade3: number;
-  grade4: number;
-  grade5: number;
-  grade6: number;
+export interface UnitData {
+  id: number;
+  title: string;
+  objectives: string[];
+  weeklyPlan: { week: number; topic: string; activity: string; localExample: string }[];
+  glossary: GlossaryTerm[];
+  questions: Question[];
+  cases: CaseStudy[];
+  scenarioMCQs: Question[];
+  assessment: { method: string; weight: number }[];
 }
 
-export interface CalculationResult {
-  grade: JobGrade;
-  difference: number; // if negative: deficit (عجز), if positive: surplus (زيادة)
-  status: 'deficit' | 'surplus' | 'balanced';
+export enum AppState {
+  HOME = 'HOME',
+  UNIT_VIEW = 'UNIT_VIEW',
+  FULL_EXAM = 'FULL_EXAM'
 }
+
+export type SubTab = 'INFO' | 'GLOSSARY' | 'PRACTICE' | 'CASES' | 'QUIZ';
